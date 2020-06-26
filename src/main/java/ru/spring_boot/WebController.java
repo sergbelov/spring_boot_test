@@ -14,7 +14,24 @@ import java.util.Map;
 public class WebController {
     private static final Logger LOG = LogManager.getLogger(WebController.class);
 
-//    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    @GetMapping("/")
+    public String main() {
+        return "Hello world";
+    }
+
+    @GetMapping("/hello")
+    public String hello(
+            @RequestParam(
+                    name = "name",
+                    required = false,
+                    defaultValue = "World") String name,
+            Model model) {
+        model.addAttribute("name", name);
+        LOG.info("Вызов через Thymeleaf");
+        return "greetingThymeleaf";
+    }
+
+    //    <artifactId>spring-boot-starter-thymeleaf</artifactId>
     @GetMapping("/greeting1")
     public String greeting1(
             @RequestParam(
