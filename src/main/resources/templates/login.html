@@ -2,19 +2,134 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <title>Spring Security Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        /*body, html {width:100%; height:100%; margin:0; background:#fdfdfd}*/
+        .label-ru {
+            color: #777;
+            font-size: 12px;
+        }
+        form {
+            padding: 30px 10px 30px;
+            width: 340px;
+            height: 80px;
+            background: #edebeb;
+            -webkit-border-radius: 0px 0px 4px 4px;
+            border-radius: 0px 0px 4px 4px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -80px;
+            margin-left: -170px;
+        }
+        button  {
+            float: right;
+            margin-right: 0px;
+            margin-top: 15px;
+            padding: 0;
+            width: 166px;
+            height: 30px;
+            background: #19aa39;
+            color: #FFF;
+            border: none;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            /*    text-transform: uppercase;*/
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .error {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            /*
+                box-sizing: border-box;
+                box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.4);
+                background: #ffeddb;
+            */
+            border-radius: 5px;
+            border-color: #fff;
+            border-style: solid;
+            padding: 15px;
+            background: #ff5050;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Open Sans';
+            overflow: auto;
+        }
+
+        .error_message {
+            margin-left: 20px;
+        }
+
+        .error_close {
+            position: absolute;
+            left: 7px;
+            top: 10px;
+            display: inline-block;
+            width: 19px;
+            height: 19px;
+            background: url(img/close.png) 0px 0px no-repeat;
+        }
+
+        .error_close:hover {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            display: inline-block;
+            width: 27px;
+            height: 27px;
+            background: url(img/close.png) -21px 0px no-repeat;
+        }
+
+    </style>
 </head>
 <body>
 <div th:if="${param.error}">
-    Invalid username and password.
+    <div class="error" id="error">
+        <span id="message" class="error_message">Не верный логин или пароль</span>
+        <a href="javascript:;" class="error_close" onClick="removeError()"></a>
+    </div>
 </div>
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td style="text-align:right;">
+                    <label><span id="username_label" class="label-ru">ИМЯ ПОЛЬЗОВАТЕЛЯ</span></label>
+                </td>
+                <td style="text-align:right;">
+                    <input id="username" name="username" type="text">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">
+                    <label><span id="password_label" class="label-ru">ПАРОЛЬ</span></label>
+                </td>
+                <td style="text-align:right;">
+                    <input id="password" name="password" type="password" value="">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" value="Submit" class="button">
+        <div id="label-logon">
+            <span id="logon_ru">АВТОРИЗАЦИЯ</span>
+        </div>
+    </button>
+<!--    <div><input type="submit" value="Sign In"/></div>-->
 </form>
 </body>
+    <script type="text/javascript">
+        function removeError() {
+            var errorParent = document.getElementById('ru')
+            var error = document.getElementById('error')
+            errorParent.removeChild(error);
+        }
+    </script>
 </html>
